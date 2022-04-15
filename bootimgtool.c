@@ -153,11 +153,6 @@ void write_to_recipe(enum rtypes type, void *value, int fd)
             write(fd, key, 3 + sizeof(uint32_t));
             free(key);
             break;
-        case RTYPE_KNS:
-            key = "kns";
-            size = sizeof(uint32_t);
-            write(fd, key, 3);
-            break;
         case RTYPE_KNA:
             key = "kna";
             size = sizeof(uint32_t);
@@ -168,11 +163,6 @@ void write_to_recipe(enum rtypes type, void *value, int fd)
             size = sizeof(uint32_t);
             write(fd, key, 3);
             break;
-        case RTYPE_RDS:
-            key = "rds";
-            size = sizeof(uint32_t);
-            write(fd, key, 3);
-            break;
         case RTYPE_RDA:
             key = "rda";
             size = sizeof(uint32_t);
@@ -180,11 +170,6 @@ void write_to_recipe(enum rtypes type, void *value, int fd)
             break;
         case RTYPE_SEA:
             key = "sea";
-            size = sizeof(uint32_t);
-            write(fd, key, 3);
-            break;
-        case RTYPE_SES:
-            key = "ses";
             size = sizeof(uint32_t);
             write(fd, key, 3);
             break;
@@ -203,19 +188,9 @@ void write_to_recipe(enum rtypes type, void *value, int fd)
             size = sizeof(uint32_t) * 8;
             write(fd, key, 3);
             break;
-        case RTYPE_RES:
-            key = "res";
-            size = sizeof(uint32_t);
-            write(fd, key, 3);
-            break;
         case RTYPE_REO:
             key = "reo";
             size = sizeof(uint64_t);
-            write(fd, key, 3);
-            break;
-        case RTYPE_DTS:
-            key = "dts";
-            size = sizeof(uint32_t);
             write(fd, key, 3);
             break;
         case RTYPE_DTA:

@@ -2,13 +2,10 @@
 
 enum rtypes {
     RTYPE_KNN,        /* "knn" - kernel name */
-    RTYPE_KNS,        /* "kns" - kernel size */
     RTYPE_KNA,        /* "kna" - kernel address */
     RTYPE_RDN,        /* "rdn" - ramdisk name */
-    RTYPE_RDS,        /* "rds" - ramdisk size */
     RTYPE_RDA,        /* "rda" - ramdisk address */
     RTYPE_SEN,        /* "sen" - second filename */
-    RTYPE_SES,        /* "ses" - second size */
     RTYPE_SEA,        /* "sea" - second address */
     RTYPE_TAA,        /* "taa" - tags address */
     RTYPE_PAS,        /* "pas" - page size */
@@ -18,9 +15,7 @@ enum rtypes {
     RTYPE_CMD,        /* "cmd" - cmdline */
     RTYPE_IDV,        /* "idv" - id */
     RTYPE_ECM,        /* "ecm" - extra cmdline */
-    RTYPE_RES,        /* "res" - recovery dtbo image size */
     RTYPE_REO,        /* "reo" - recovery dtbo image offset */
-    RTYPE_DTS,        /* "dts" - DTB size */
     RTYPE_DTA,        /* "dto" - DTB addr */
     RTYPE_DTN,        /* "dtn" - DTB filename */
     RTYPE_RESERVED
