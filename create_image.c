@@ -144,16 +144,16 @@ int create_image(struct bootimg_params *params, const char *filename)
         dtb_data = load_file(params->dtb_filename, &dtb_size);
         hdr.dtb_size = dtb_size;
         hdr.dtb_addr = params->dtb_addr;
-
-        if(params->recovery_dtbo_size != 0)
-        {
-            /* TODO: Load recovery data */
-        }
     }
 
     if(params->header_version > 0)
     {
         hdr.header_size = header_size;
+
+        if(params->recovery_dtbo_size != 0)
+        {
+            /* TODO: Load recovery data */
+        }
     }
 
     if(params->keep_id == 1)
@@ -205,7 +205,7 @@ int create_image(struct bootimg_params *params, const char *filename)
         free(second_data);
     }
 
-    
+    /* TODO: load recovery */
 
     if(dtb_data != NULL)
     {
