@@ -15,5 +15,5 @@ clean:
 	@rm -rf *.o
 	@rm -rf $(OUT)
 
-install:
+install: $(OUT)
 	@install -m 755 $(OUT) /usr/bin
