@@ -1,7 +1,7 @@
 OUT := bootimgtool
+LIBS_OPENSSL := $(shell pkg-config --libs openssl)
 
 all: $(OUT)
-LIBS_OPENSSL := $(shell pkg-config --libs openssl)
 
 $(OUT): bootimgtool.o create_image.o
 	gcc -O3 bootimgtool.o create_image.o  $(LIBS_OPENSSL) -o $(OUT)
@@ -16,4 +16,4 @@ clean:
 	@rm -rf $(OUT)
 
 install:
-	install -m 755 $(OUT) /usr/bin
+	@install -m 755 $(OUT) /usr/bin
