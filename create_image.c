@@ -88,6 +88,7 @@ int create_image(struct bootimg_params *params, const char *filename)
     {
         fprintf(stderr, "FATAL: could not find kernel file\n");
         close(fd);
+        return 1;
     }
 
     hdr.kernel_size = kernel_size;
@@ -99,6 +100,7 @@ int create_image(struct bootimg_params *params, const char *filename)
         fprintf(stderr, "FATAL: could not find ramdisk file\n");
         free(kernel_data);
         close(fd);
+        return 1;
     }
 
     hdr.ramdisk_size = ramdisk_size;
