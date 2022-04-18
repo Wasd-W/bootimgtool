@@ -1,15 +1,3 @@
-/*
- * bootimgtool
- * ===========
- *
- * The tool will have three modes of operation: info, create, disassemble.
- *
- * info: will show information from the header.
- * create: will create a new boot.img according to the given parameters, or to a
- * recipe.cfg file if it exists.
- * disassemble: will give you kernel, ramdisk, second, etc. and will create a
- * recipe.cfg file, to be able to recreate the image.
- */
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -309,18 +297,6 @@ int main(int argc, char *argv[])
                    }
                    parse_recipe(fd, &params);
                    create_image(&params, filename);
-                   /* if(!strcmp(*ars, "-o") || !strcmp(*ars, "--output")) 
-                   {
-                       filename = *(ars + 1);
-                       parse_recipe(fd, &params);
-                       create_image(&params, filename);
-                   } 
-                   else 
-                   {
-                       fprintf(stderr, "create: unknown option %s\n", *ars);
-                       close(fd);
-                       return 1;
-                   } */
                } 
                else 
                {
@@ -474,7 +450,7 @@ int main(int argc, char *argv[])
                             {
                                 uint32_t dtb_pages = (hdr.dtb_size + hdr.page_size - 1) / hdr.page_size;
                                 uint8_t  *dtb_data = malloc(hdr.dtb_size);
-                                /* write_to_recipe(RTYPE_DTS, &hdr.dtb_size, recipe_fd); */
+
                                 write_to_recipe(RTYPE_DTA, &hdr.dtb_addr, recipe_fd);
                                 pread(fd, dtb_data, hdr.dtb_size, hdr.page_size + (kernel_pages * hdr.page_size)
                                                                                 + (ramdisk_pages * hdr.page_size)
