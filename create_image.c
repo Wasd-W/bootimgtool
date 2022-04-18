@@ -158,38 +158,31 @@ int create_image(struct bootimg_params *params, const char *filename)
         }
     }
 
-    if(params->keep_id == 1)
+    SHA_CTX c;
+    uint8_t sha[SHA_DIGEST_LENGTH];
+
+    SHA1_Init(&c);
+
+    SHA1_Update(&c, kernel_data, hdr.kernel_size);
+    SHA1_Update(&c, &hdr.kernel_size, sizeof(hdr.kernel_size));
+    SHA1_Update(&c, ramdisk_data, hdr.ramdisk_size);
+    SHA1_Update(&c, &hdr.ramdisk_size, sizeof(hdr.ramdisk_size));
+
+    if(second_size != 0)
     {
-        memcpy(hdr.id, params->id, sizeof(uint32_t) * 8);
+        SHA1_Update(&c, second_data, hdr.second_size);
+        SHA1_Update(&c, &hdr.second_size, sizeof(hdr.second_size));
     }
-    else
-    {
-        SHA_CTX c;
-        uint8_t sha[SHA_DIGEST_LENGTH];
 
-        SHA1_Init(&c);
-
-        SHA1_Update(&c, kernel_data, hdr.kernel_size);
-        SHA1_Update(&c, &hdr.kernel_size, sizeof(hdr.kernel_size));
-        SHA1_Update(&c, ramdisk_data, hdr.ramdisk_size);
-        SHA1_Update(&c, &hdr.ramdisk_size, sizeof(hdr.ramdisk_size));
-
-        if(second_size != 0)
-        {
-            SHA1_Update(&c, second_data, hdr.second_size);
-            SHA1_Update(&c, &hdr.second_size, sizeof(hdr.second_size));
-        }
-
-        SHA1_Update(&c, &hdr.tags_addr, sizeof(hdr.tags_addr));
-        SHA1_Update(&c, &hdr.page_size, sizeof(hdr.page_size));
-        SHA1_Update(&c, &hdr.header_version, sizeof(hdr.header_version));
-        SHA1_Update(&c, &hdr.os_version, sizeof(hdr.os_version));
-        SHA1_Update(&c, hdr.name, sizeof(hdr.name));
-        SHA1_Update(&c, hdr.cmdline, sizeof(hdr.cmdline));
+    SHA1_Update(&c, &hdr.tags_addr, sizeof(hdr.tags_addr));
+    SHA1_Update(&c, &hdr.page_size, sizeof(hdr.page_size));
+    SHA1_Update(&c, &hdr.header_version, sizeof(hdr.header_version));
+    SHA1_Update(&c, &hdr.os_version, sizeof(hdr.os_version));
+    SHA1_Update(&c, hdr.name, sizeof(hdr.name));
+    SHA1_Update(&c, hdr.cmdline, sizeof(hdr.cmdline));
         
-        SHA1_Final(sha, &c);
-        memcpy(hdr.id, sha, SHA_DIGEST_LENGTH > sizeof(hdr.id) ? sizeof(hdr.id) : SHA_DIGEST_LENGTH);
-    }
+    SHA1_Final(sha, &c);
+    memcpy(hdr.id, sha, SHA_DIGEST_LENGTH > sizeof(hdr.id) ? sizeof(hdr.id) : SHA_DIGEST_LENGTH);
 
     write(fd, &hdr, header_size);
     write_padding(fd, params->page_size - header_size);

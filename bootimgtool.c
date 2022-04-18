@@ -277,12 +277,6 @@ int main(int argc, char *argv[])
                             ars += 2;
                             arc -= 2;
                         }
-                        else if(!strcmp(*ars, "-k") || !strcmp(*ars, "--keep-id"))
-                        {
-                            params.keep_id = 1;
-                            arc -= 1;
-                            ars += 1;
-                        }
                         else
                         {
                             fprintf(stderr, "create: unknown flag %s\n", *ars);

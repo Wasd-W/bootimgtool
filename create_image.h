@@ -22,7 +22,6 @@ struct bootimg_params {
     uint32_t header_size;
     uint8_t  dtb_filename[50];
     uint64_t dtb_addr;
-    uint8_t  keep_id;
 };
 
 int create_image(struct bootimg_params *params, const char *filename);
