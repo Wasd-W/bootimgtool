@@ -109,7 +109,6 @@ int create_image(struct bootimg_params *params, const char *filename)
 
     if(aligned_ramdisk_size != hdr.ramdisk_size)
     {
-        fprintf(stdout, "current ramdisk not aligned: %lu\n", hdr.ramdisk_size);
         uint32_t remainder = aligned_ramdisk_size - hdr.ramdisk_size;
         uint8_t *temp_ramdisk_data = realloc(ramdisk_data, hdr.ramdisk_size + remainder);
 
@@ -118,7 +117,6 @@ int create_image(struct bootimg_params *params, const char *filename)
             ramdisk_data = temp_ramdisk_data;
             memset(ramdisk_data + hdr.ramdisk_size, 0, remainder);
             hdr.ramdisk_size += remainder;
-            fprintf(stdout, "new aligned size: %lu\n", hdr.ramdisk_size);
         }
     }
 
