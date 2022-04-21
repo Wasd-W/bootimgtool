@@ -14,7 +14,7 @@ endif
 all: $(OUT)
 
 $(OUT): $(OBJS)
-	gcc $(CFLAGS) $(LDFLAGS) $(OBJS) -o $(OUT)
+	gcc $(CFLAGS) $(OBJS) $(LDFLAGS) -o $(OUT)
 
 bootimgtool.o: bootimgtool.c create_image.c
 	gcc -c bootimgtool.c -o bootimgtool.o
