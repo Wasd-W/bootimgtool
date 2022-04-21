@@ -7,6 +7,10 @@
 
 #include "create_image.h"
 
+#ifdef WIN32
+#include "win32.h"
+#endif
+
 static uint32_t align(uint32_t value)
 {
     unsigned int alignment_mask = 4 - 1;
@@ -57,14 +61,14 @@ int create_image(struct bootimg_params *params, const char *filename)
     uint8_t *dtb_data = NULL;
 
     if(!strcmp((filename + (strlen(filename) - 4)), ".img")) {
-        fd = open(filename, O_RDWR | O_CREAT | O_TRUNC, 0644);
+        fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
     } else {
         char *new_filename = malloc(strlen(filename) + 5);
 
         memset(new_filename, 0, strlen(filename) + 5);
         memcpy(new_filename, filename, strlen(filename));
         strcpy(new_filename + strlen(filename), ".img");
-        fd = open(new_filename, O_RDWR | O_CREAT | O_TRUNC, 0644);
+        fd = open(new_filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
         free(new_filename);
     }
 

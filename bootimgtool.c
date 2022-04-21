@@ -7,6 +7,10 @@
 #include "bootimgtool.h"
 #include "create_image.h"
 
+#ifdef WIN32
+#include "win32.h"
+#endif
+
 int  is_valid_image(int fd)
 {
     int file_size = 0;
