@@ -26,5 +26,4 @@ char* get_os_patch_level(uint32_t os_patch_level);
 char* get_os_version(uint32_t os_version);
 int   read_header(int fd, struct bootimg_hdr_0_2 *header);
 void  show_info(struct bootimg_hdr_0_2 *header);
-int   usage();
 void  write_to_recipe(enum rtypes type, void *value, int fd);

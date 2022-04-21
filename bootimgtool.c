@@ -104,9 +104,38 @@ void show_info(struct bootimg_hdr_0_2 *header)
     }
 }
 
-int usage()
+static int usage()
 {
-    fprintf(stdout, "Usage: bootimgtool [info | create | disassemble]\n");
+    fprintf(stdout, "Usage: bootimgtool info | create | disassemble\n\n");
+    fprintf(stdout, "Type bootimgtool <command> help for more information\n");
+    return 1;
+}
+
+static int usage_create()
+{
+    fprintf(stdout, "bootimgtool create [-o filename]\n\n");
+    fprintf(stdout, "Creates a new image named filename\n\n");
+    fprintf(stdout, "-o, --output\tSpecifies the output filename\n");
+    fprintf(stdout, "\n");
+    fprintf(stdout, "If a file named recipe.cfg exists, bootimgtool will\n");
+    fprintf(stdout, "read that file and get needed parameters from it. In\n");
+    fprintf(stdout, "that case, only the -o parameter is needed.\n");
+}
+
+static int usage_disassemble()
+{
+    fprintf(stdout, "bootimgtool disassemble <filename>\n\n");
+    fprintf(stdout, "Parses filename and extracts kernel, ramdisk and\n");
+    fprintf(stdout, "other contents, and creates a recipe.cfg file with\n");
+    fprintf(stdout, "all the parameters of the image (kernel address, ramdisk\n");
+    fprintf(stdout, "address, command line, etc.) so it can be used by the create\n");
+    fprintf(stdout, "command to repack the image again.\n");
+}
+
+static int usage_info()
+{
+    fprintf(stdout, "bootimgtool info <image>\n\n");
+    fprintf(stdout, "Displays information about <image>\n");
     return 1;
 }
 
@@ -209,6 +238,11 @@ int main(int argc, char *argv[])
         {
             if(argc >= 3) 
             {
+                if(!strcmp(argv[2], "help"))
+                {
+                    return usage_info();
+                }
+
                 const char*            filename = argv[2];
                 int                    fd = 0;
                 struct bootimg_hdr_0_2 hdr;
@@ -257,6 +291,14 @@ int main(int argc, char *argv[])
         } 
         else if(!strcmp(argv[1], "create")) 
         {
+            if(argc >= 3)
+            {
+                if(!strcmp(argv[2], "help"))
+                {
+                    return usage_create();
+                }
+            }
+
             struct bootimg_params params;
             int                   fd = 0;
             char                  *filename = NULL;
@@ -312,6 +354,11 @@ int main(int argc, char *argv[])
         {
             if(argc >= 3) 
             {
+                if(!strcmp(argv[2], "help"))
+                {
+                    return usage_disassemble();
+                }
+
                 int                    fd = open(argv[2], O_RDONLY);
                 struct bootimg_hdr_0_2 hdr;
 
@@ -485,8 +532,7 @@ int main(int argc, char *argv[])
             } 
             else 
             {
-                fprintf(stderr, "Usage: bootimgtool disassemble <image>");
-                return 1;
+                return usage_disassemble();
             }
         } 
         else 
