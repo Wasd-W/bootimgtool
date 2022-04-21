@@ -1,15 +1,20 @@
-OUT := bootimgtool
-LIBS_OPENSSL := $(shell pkg-config --libs openssl)
+CFLAGS := -O3
+LDFLAGS := $(shell pkg-config --libs openssl)
 OBJS := create_image.o bootimgtool.o
+OUT := bootimgtool
 
 ifeq ($(OS),Windows_NT)
 	OBJS += win32.o
 endif
 
+ifeq ($(STATIC),1)
+	CFLAGS += -static
+endif
+
 all: $(OUT)
 
 $(OUT): $(OBJS)
-	gcc -O3 $(OBJS)  $(LIBS_OPENSSL) -o $(OUT)
+	gcc $(CFLAGS) $(LDFLAGS) $(OBJS) -o $(OUT)
 
 bootimgtool.o: bootimgtool.c create_image.c
 	gcc -c bootimgtool.c -o bootimgtool.o
