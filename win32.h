@@ -5,10 +5,6 @@ ssize_t pread(int fd, void *buf, size_t size, off_t offset);
     int fd = 0;                    \
     FILE *fs = NULL;               \
     char *mode = "rb";             \
-    if(flags & O_RDONLY)           \
-    {                              \
-        mode = "rb";               \
-    }                              \
     if(flags & O_WRONLY)           \
     {                              \
         mode = "wb";               \
