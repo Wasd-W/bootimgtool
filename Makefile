@@ -5,9 +5,6 @@ OUT := bootimgtool
 
 ifeq ($(OS),Windows_NT)
 	OBJS += win32.o
-endif
-
-ifeq ($(STATIC),1)
 	CFLAGS += -static
 endif
 
