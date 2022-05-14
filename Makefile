@@ -12,7 +12,7 @@ endif
 all: $(OUT)
 
 $(OUT): $(OBJS)
-	gcc $(OBJS) $(LDFLAGS) -o $(OUT)
+	gcc $(CFLAGS) $(OBJS) $(LDFLAGS) -o $(OUT)
 
 %.o: %.c
 	$(CC) -c $< -o $@
