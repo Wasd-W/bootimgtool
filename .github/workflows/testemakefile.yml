@@ -9,13 +9,16 @@ on:
 jobs:
   build:
 
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
       
     - name: autoreconf
-      run: autoreconf -i`
+      run: autoreconf -i
+      
+    - name: autoconf
+      run: autoconf
       
     - name: configure
       run: ./configure
