@@ -33,14 +33,16 @@ jobs:
 
     
   name: make
-  run: make
+  run: make 
+  
+  
+name:make check
 
-  name: make check
-  run: make check
-
-    - name: make distcheck
-
-      run: make distcheck
+run:make check
+  
+  name: make distcheck
+  
+  run: make distcheck
     
     
     
