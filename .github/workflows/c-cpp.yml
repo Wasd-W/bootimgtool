@@ -12,9 +12,26 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Setup MSYS2
+
+    
     - uses: msys2/setup-msys2@v2
+
+    with:
+
+      update: true
+
+      install: >-
+
+        git
+        autogen
+        libtoll
+
+        base-devel
+        autoconf
+        autoreconf
+      
+    - uses: actions/checkout@v3
+    
     - name: autoreconf
 
       run: autoreconf
