@@ -12,8 +12,7 @@ jobs:
     runs-on: windows-latest
 
     steps:
-
-    
+    - uses: actions/checkout@v3
     - uses: msys2/setup-msys2@v2
 
     with:
@@ -25,28 +24,19 @@ jobs:
         git
         autogen
         libtoll
-
         base-devel
         autoconf
         autoreconf
-      
-    - uses: actions/checkout@v3
+     
+    name: configure
+    run: ./configure
+
     
-    - name: autoreconf
+  name: make
+  run: make
 
-      run: autoreconf
-      
-    - name: configure
-
-      run: ./configure
-
-    - name: make
-
-      run: make
-
-    - name: make check
-
-      run: make check
+  name: make check
+  run: make check
 
     - name: make distcheck
 
