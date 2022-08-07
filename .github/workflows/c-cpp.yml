@@ -25,8 +25,7 @@ jobs:
         autogen
         libtoll
         base-devel
-        autoconf
-        autoreconf
+        
      
     name: configure
     run: ./configure
