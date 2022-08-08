@@ -12,20 +12,25 @@ jobs:
     runs-on: windows-latest
 
     steps:
+    - name: Setup Node.js environment
+    - uses: actions/setup-node@v3.4.1
+    - name: Setup MSYS2
     - uses: msys2/setup-msys2@v2
+      with:
+        update: true
+        install: >-
+          git
+          autogen
+          libtoll
+          base-devel
     
-      install: >-
-git; autoconf; libtoll; base-devel
-
-         - uses: actions/checkout@v3
-         - name: configure
-           run: ./configure
-      
-        - name: Install dependencies
-           run: make
-      
-        - name: Run check
-           run: make check
-      
-        - name: Run distcheck
-         run: make distcheck
+    - name: Checkout repository
+    - uses: actions/checkout@v3
+    - name: configure
+      run: ./configure
+    - name: make
+      run: make 
+    - name: make check
+      run: make check
+    - name: make distcheck
+      run: make distcheck
